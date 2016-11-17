@@ -69,7 +69,7 @@ Pros:
 
 + Modularizations.
 
-+ Easier to follow the "DRY" principle.
++ Easier to follow the 'DRY' principle.
 
 + Nesting.
 
@@ -78,6 +78,8 @@ Pros:
 + Mixins.
 
 + Mathematical functions.
+
++ Joining of files.
 
 Cons:
 
@@ -89,17 +91,97 @@ you might find pre-processors way of creating CSS more logical, since you can us
 
 + Since CSS is abstracted, this adds another step to updates and changes. This might also affect debugging.
 
-    What do you think of pre-compiling your CSS?
-        Compare to regular CSS
-        Which techniques did you use?
-        Pros and cons?
+## What do you think of static site generators?
 
-    What do you think of static site generators?
-        What type of projects are they suitable for?
+I think static site generators are great, but it's not for every site. One common characteristic of a static site is how fast it loads. In a static site, there's no database queries to
+run and furthermore no processing on every request. The entire site consists of static HTML files that's just sitting on a server, waiting to distribute. Web servers are really good at
+delivering these static sites which means that when a request is filed, it's served almost instantly.
 
-    What is robots.txt and how have you configure it for your site?
+Another great thing thing with static site generators is the fact that you don't have you deal with installing and maintaining the infrastructure required to run a dynamic site. This can
+be hard to work with sometimes, especially when you have more than one server involved. Even if static site generators is a software package with its dependencies too, that's only relevant
+at the time you generate your site. Once it's generated, it's there for good. HTML files will remain HTML files and can be migrated and scaled regardless of which server technologies being
+used.
 
-    What is humans.txt and how have you configure it for your site?
+However, there's also some disadvantages to using this technology. When you're creating a static site you lose the ability to have real-time data on your site. Static will remain static
+for everyone which means that you can't 'tailor' the site to better fit an individual. Furthermore, there's no kind of admin user-interface on a static site. For example, when you are
+publishing a post you need to regenerate the site. Many engines have a so-called 'watch' function (I'm currently using 'npm run watch' as I type this) to detect file changes and automatically
+regenerate the site. This might however get tricky if your using other devices than a computer.
+
+To summarize, switching to a static site can save both time and money since it doesn't require as much maintenance. These sites are straight forward and reliable, what you see is what you get.
+However, it's not meant for every site. Therefore it's important to understand how they work and when they should be used.
+
+## What is robots.txt and how have you configure it for you site?
+
+The robots.txt file is one of the main ways of restricting a search engine of where it can, and can't, go on your website. All of the major search engines supports the basic functionality of
+of this file. The file should be put in the root of your domain. For example, if you website is [http://www.mysite.com](#) your robots.txt should be found in [http://www.mysite.com/robots.txt](#).
+
+So how does it work? Well, the first thing a so-called search engine 'spider' (or robot) does when it encounters a new domain is search for the robot.txt document. This tell the
+spider where it can, and can't go. As a result, it's very important that you name this file correctly (it's case sensitive). Worth mentioning is that even though you can control where the
+robot can go, you can't remove your site from search engine using the robots.txt. If the search engine find enough links to your domain, it will be included. However, the search engine will
+not know what to do with that domain.
+
+This is what my robots.txt looks like:
+
+{% highlight text %}
+
+User-agent: *
+Disallow:
+
+{% endhighlight %}
+
+The user-agent identifies a specific spider. For instance, if I want to target google's spider 'Googlebot', I simply adjust the row to say 'User-agent: Google'. In my case, I use the character
+* which allows all search engines to crawl my entire site. The Disallow line of the file is the part where you tell the robots what they can and can't access. I chose to not restrict them in any
+way. However, if you wanted to disallow all search engines (that's compatible with robots.txt) you'd use the character /. This emphasizes how important it is to be careful when setting this up,
+one single character is the difference between full access, and no access at all.
+
+You can also set up individual rules for different bots, like this:
+
+{% highlight java %}
+//Grant Googlebot access of everything
+User-agent: Google
+Disallow:
+//Don't let the Evil Bot in!
+User-agent: EvilBot
+Disallow: /
+
+{% endhighlight %}
+
+##Alright, enough about robots. What's humans.txt?
+
+The humans.txt is a simple way of 'humanizing' (if you will) a website. It's a simple way to see the team behind a website and which tools and language that was being used. My human.txt file
+looks like this:
+
+{% highlight text %}
+
+/* TEAM */
+
+Your title: Carl Viberg
+Site: Carlv@hotmail.se
+
+/* THANKS */
+Name: All LNU lecturers.
+
+/* SITE */
+Last update: 2016/11/17
+Standards: HTML5, CSS
+Components: Webstorm, Jekyll, Sass
+
+
+{% endhighlight %}
+
+As you can see, this file is very straight forward.
+
+## How did you implement comments to blog posts?
+
+In order to create a comment system for my website I used something called Disqus, which is a networked community platform. It automatically adapts to your sites design and color scheme, but
+you can also change it manually if you'd like. You can also use Disqus to earn money, since you can include native ads to generate revenue. That's not important whatsoever in my case though,
+since my site isn't going to have a large audience. This comment system is easy to install, I just went to their [website](https://disqus.com/), filled out some information to make the
+platform adapt to my site (URLs etc) and then added the code snippet to my posts. Straight forward and simple!
+
+## What is Open Graph and how do you make use of it?
+
+The Open Graph technology was first introduced by Facebook in 2010. It allows integration between Facebook, with its user data and a website. Using Open Graph is simple, you use their tags
+'og' to specify what elements of your page you'd like to show when someone share's your website. By specifying this, Facebook doesn't have to guess which elements to use.
 
     How did you implements comments to blog posts
     What is Open Graph and how do you make use of it?
@@ -113,7 +195,7 @@ you might find pre-processors way of creating CSS more logical, since you can us
 
 
 {% if page.comments %}
-<div id="disqus_thread"></div>
+<div id='disqus_thread'></div>
 <script>
 
 /**
@@ -121,8 +203,8 @@ you might find pre-processors way of creating CSS more logical, since you can us
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 /*
 var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = page.url; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = page.identifier; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 */
 (function() { // DON'T EDIT BELOW THIS LINE
@@ -132,7 +214,7 @@ s.setAttribute('data-timestamp', +new Date());
 (d.head || d.body).appendChild(s);
 })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<noscript>Please enable JavaScript to view the <a href='https://disqus.com/?ref_noscript'>comments powered by Disqus.</a></noscript>
 {% endif %}
 
 [jekyll]:      http://jekyllrb.com
