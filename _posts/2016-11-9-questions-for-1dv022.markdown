@@ -183,16 +183,6 @@ platform adapt to my site (URLs etc) and then added the code snippet to my posts
 The Open Graph technology was first introduced by Facebook in 2010. It allows integration between Facebook, with its user data and a website. Using Open Graph is simple, you use their tags
 'og' to specify what elements of your page you'd like to show when someone share's your website. By specifying this, Facebook doesn't have to guess which elements to use.
 
-    How did you implements comments to blog posts
-    What is Open Graph and how do you make use of it?
-
-
-
-
-
-
-
-
 
 {% if page.comments %}
 <div id='disqus_thread'></div>
