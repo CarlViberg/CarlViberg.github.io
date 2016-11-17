@@ -1,0 +1,11 @@
+# Site settings
+title: Carl Viberg
+email: Carlv@hotmail.se
+description: > # this means to ignore newlines until "baseurl:"
+  This is Carl Vibergs very own Jekyll site.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://yourdomain.com" # the base hostname & protocol for your site
+github_username:  CarlViberg
+
+# Build settings
+markdown: kramdown
